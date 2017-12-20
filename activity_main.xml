@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.blalonde9489.projectapp.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="368dp"
+        android:layout_height="492dp"
+        tools:layout_editor_absoluteX="-37dp"
+        tools:layout_editor_absoluteY="4dp">
+
+        <Button
+            android:id="@+id/btnInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="33dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="32dp"
+            android:layout_toRightOf="@+id/btnViewPokemon"
+            android:onClick="onClick"
+            android:text="View Inventory" />
+
+        <Button
+            android:id="@+id/btnFindPokemon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/btnInventory"
+            android:layout_alignLeft="@+id/btnViewPokemon"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/btnInventory"
+            android:layout_alignStart="@+id/btnViewPokemon"
+            android:layout_marginBottom="11dp"
+            android:onClick="onClick"
+            android:text="Find Pokemon" />
+
+        <Button
+            android:id="@+id/btnViewPokemon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btnInventory"
+            android:layout_alignBottom="@+id/btnInventory"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:onClick="onClick"
+            android:text="View Pokemon" />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/btnViewPokemon"
+            android:layout_alignStart="@+id/btnViewPokemon"
+            android:layout_below="@+id/btnViewPokemon"
+            android:layout_marginLeft="21dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="39dp"
+            android:text="TextView" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignLeft="@+id/result"
+            android:layout_alignStart="@+id/result"
+            android:layout_below="@+id/result"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="100dp"/>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
