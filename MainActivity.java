@@ -1,14 +1,21 @@
 package com.example.blalonde9489.projectapp;
 
+import android.app.IntentService;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -18,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private User user;
     private AppDatabase database;
-
+    private ListView listview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +33,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.my_preferences = PreferenceManager
                 .getDefaultSharedPreferences(this);
         database = AppDatabase.getDatabase(getApplicationContext());
-
+        listview=(ListView) findViewById(R.id.listview);
         // cleanup for testing some initial data
         // add some data
         List<User> users = database.userDao().getAllUser();
         if (users.size()==0) {
-            //database.userDao().addUser(new User(1, "Brandon", 1));
+            database.userDao().addUser(new User(1, "Brandon","email@", "hello"));
             user = database.userDao().getAllUser().get(0);
             Toast.makeText(this, String.valueOf(user.id), Toast.LENGTH_SHORT).show();
             Pokemon pokemon = new Pokemon(user.id, "Charizard");
@@ -49,26 +56,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         List<Pokemon> pokemonForUser = database.pokemonDao().findPokemonForUser(user.get(0).id);
         TextView textView = (TextView) findViewById(R.id.result);
         textView.setText("");
-        TextView caught=(TextView) findViewById(R.id.txtPokemon);
-        caught.setText("");
+        //TextView caught=(TextView) findViewById(R.id.txtPokemon);
+        //caught.setText("");
         if (user.size()>0){
             for(int i=0;i<pokemonForUser.size();i++) {
                 textView.setText("Number of Pokemon: " + pokemonForUser.size());
-                caught.append("Pokemon " + pokemonForUser.get(i).description + "\n");
+                //caught.append("Pokemon " + pokemonForUser.get(i).description + "\n");
+                final ArrayList<String> list = new ArrayList<String>();
+
+                        String[] values = new String[]{pokemonForUser.get(i).description};
+
+
+                        for (int x = 0; x < values.length; ++x) {
+                            list.add(values[x]);
+                        }
+                        final StableArrayAdapter adapter = new StableArrayAdapter(this,
+                                android.R.layout.simple_list_item_1, list);
+                        listview.setAdapter(adapter);
             }
         }
     }
     private void updateInventoryData() {
         List<User> user = database.userDao().getAllUser();
         List<Inventory> inventoryForUser = database.inventoryDao().findItems(user.get(0).id);
-        ListView textView = (TextView) findViewById(R.id.result);
-        textView.add
-        TextView caught=(TextView) findViewById(R.id.txtPokemon);
-        caught.setText("");
+        TextView textView = (TextView) findViewById(R.id.result);
+        textView.setText("");
+       // TextView caught=(TextView) findViewById(R.id.txtPokemon);
+        //caught.setText("");
         if (user.size()>0){
             for(int i=0;i<inventoryForUser.size();i++) {
                 textView.setText("Number of Items: " + inventoryForUser.size());
-                caught.setText("Items " + inventoryForUser.get(i).description + "\n");
+               // caught.setText("Items " + inventoryForUser.get(i).description + "\n");
             }
         }
     }
@@ -103,6 +121,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             updateInventoryData();
         }
         // TODO call updatefirstUserData
+
+    }
+    private class StableArrayAdapter extends ArrayAdapter<String> {
+
+        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+
+        public StableArrayAdapter(Context context, int textViewResourceId,
+                                  List<String> objects) {
+            super(context, textViewResourceId, objects);
+            for (int i = 0; i < objects.size(); ++i) {
+                mIdMap.put(objects.get(i), i);
+            }
+        }
+
+        @Override
+        public long getItemId(int position) {
+            String item = getItem(position);
+            return mIdMap.get(item);
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return true;
+        }
 
     }
 }
