@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             int rand=rnd.nextInt(9);
             String[] wildPokemon={"Bulbasaur", "Ivysaur", "Venusaur", "Charmander", "Charmeleon", "Charizard", "Squirtle", "Wartortle", "Blastoise"};
 
-            Pokemon pokemon = new Pokemon(user.id, wildPokemon[rand]);
+            Pokemon pokemon = new Pokemon(1, wildPokemon[rand]);
             database.pokemonDao().addPokemon(pokemon);
             updateFirstUserData();
         }
