@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -21,7 +23,7 @@ public class ReadWebpageAsyncTask extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = (TextView) findViewById(R.id.t);
+        textView = (TextView) findViewById(R.id.textView);
     }
 
     private class DownloadWebPageTask extends AsyncTask<String, Void, String> {
@@ -35,7 +37,7 @@ public class ReadWebpageAsyncTask extends Activity {
                             .build();
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                return response.body().string();
+                return response.body().toString();
             }
 
             return "Download failed";
@@ -50,7 +52,7 @@ public class ReadWebpageAsyncTask extends Activity {
     // Triggered via a button in your layout
     public void onClick(View view) {
         DownloadWebPageTask task = new DownloadWebPageTask();
-        task.execute(new String[] { "http://www.vogella.com/index.html" });
+        task.execute(new String[] { "https://www.pokemon.com/us/pokedex/" });
 
     }
 }
