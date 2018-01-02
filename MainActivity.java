@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -122,6 +123,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(view.getId()==R.id.btnInventory)
         {
             updateInventoryData();
+        }
+        if(view.getId()==R.id.btnpoke)
+        {
+            ReadWebpageAsyncTask myTask = new ReadWebpageAsyncTask();
+            myTask.onClick(view);
         }
         // TODO call updatefirstUserData
 
