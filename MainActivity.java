@@ -61,18 +61,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (user.size()>0){
             for(int i=0;i<pokemonForUser.size();i++) {
                 textView.setText("Number of Pokemon: " + pokemonForUser.size());
-                //caught.append("Pokemon " + pokemonForUser.get(i).description + "\n");
+                String[] values=new String[pokemonForUser.size()];;
+                for (int y = 0; y <pokemonForUser.size(); y++){
+                    values[y] = pokemonForUser.get(y).description;
+
+            }
+
                 final ArrayList<String> list = new ArrayList<String>();
 
-                        String[] values = new String[]{pokemonForUser.get(i).description};
+                for (int x = 0; x < values.length; ++x) {
+                    list.add(values[x]);
+                }
+                final StableArrayAdapter adapter = new StableArrayAdapter(this,
+                        android.R.layout.simple_list_item_1, list);
+                listview.setAdapter(adapter);
 
-
-                        for (int x = 0; x < values.length; ++x) {
-                            list.add(values[x]);
-                        }
-                        final StableArrayAdapter adapter = new StableArrayAdapter(this,
-                                android.R.layout.simple_list_item_1, list);
-                        listview.setAdapter(adapter);
             }
         }
     }
